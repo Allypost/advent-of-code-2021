@@ -46,6 +46,29 @@ export const add =
     Number(a) + Number(b)
   ;
 
+export const setsAreEqual =
+  (
+    a: Set<unknown> | unknown[],
+    b: Set<unknown>,
+  ): boolean => {
+    const aSize: number =
+      (a as Set<never>)?.size
+      ?? (a as never[])?.length
+      ;
+
+    if (aSize !== b.size) {
+      return false;
+    }
+
+    for (const el of a) {
+      if (!b.has(el)) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
 export const multiply =
   (a: number, b: number) =>
     a * b
