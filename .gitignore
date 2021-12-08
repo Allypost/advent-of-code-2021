@@ -1,0 +1,9 @@
+.vscode/
+.idea/
+
+inputs/*
+!inputs/.gitkeep
+
+node_modules/
+
+session.txt
