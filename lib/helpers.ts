@@ -42,8 +42,8 @@ export const permutations =
   };
 
 export const add =
-  (a: number, b: number) =>
-    a + b
+  (a: number | boolean, b: number | boolean) =>
+    Number(a) + Number(b)
   ;
 
 export const multiply =
