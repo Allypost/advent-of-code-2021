@@ -6,9 +6,8 @@ import {
 } from "../lib/input.ts";
 
 const inputs =
-  loadInput(ENTER_DAY_HERE, { test: false })
-    .split(',')
-    .map(Number)
+  loadInput(ENTER_DAY_HERE, { test: true })
+    .split('\n')
   ;
 
 function solve1(input: typeof inputs) {
