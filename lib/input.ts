@@ -32,6 +32,14 @@ const deepClone =
       return inObject as T; // Return the value if inObject is not an object
     }
 
+    if (inObject instanceof Map) {
+      return new Map(JSON.parse(JSON.stringify([...inObject]))) as unknown as T;
+    }
+
+    if (inObject instanceof Set) {
+      return new Set(JSON.parse(JSON.stringify([...inObject]))) as unknown as T;
+    }
+
     // Create an array or object to hold the values
     const outObject: Record<string, unknown> | unknown[] = Array.isArray(inObject) ? [] : {};
 
