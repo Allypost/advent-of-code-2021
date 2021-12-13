@@ -53,7 +53,7 @@ const deepClone =
   };
 
 
-export type Solver<T> = (data: T) => number;
+export type Solver<T> = (data: T) => number | string;
 
 export const printOutput =
   <T>(data: T, { solve1, solve2 }: { solve1: Solver<T>, solve2: Solver<T> }) => {
@@ -69,8 +69,28 @@ export const printOutput =
       duration: time2,
     } = timer.timed(() => solve2(deepClone(data)));
 
-    const padLength = Math.max(...[part1, part2].map((n) => String(n).length));
+    const padLength = Math.max(...[part1, part2].filter((n) => typeof n === "number").map((n) => String(n).length));
     const padded = (val: unknown) => String(val).padEnd(padLength, " ");
+
+    const logResult =
+      (part: number) =>
+        (result: ReturnType<Solver<unknown>>, time: string) =>
+          console.log(
+            `|> ${part}:`,
+            padded(
+              typeof result === "number"
+                ? result
+                : ""
+              ,
+            ),
+            "in",
+            time,
+            typeof result === "string"
+              ? `\n${result}`
+              : ""
+            ,
+          )
+      ;
 
     const dateTime = new Date().toLocaleDateString("default", {
       day: "numeric",
@@ -83,6 +103,6 @@ export const printOutput =
     });
     console.log("@>", dateTime);
     console.log("".padEnd(dateTime.length + 3, "="));
-    console.log("|> 1:", padded(part1), "in", String(time1));
-    console.log("|> 2:", padded(part2), "in", String(time2));
+    logResult(1)(part1, String(time1));
+    logResult(2)(part2, String(time2));
   };
