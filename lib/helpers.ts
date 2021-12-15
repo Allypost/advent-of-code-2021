@@ -28,6 +28,12 @@ export class PriorityQueue<T> {
   }
 }
 
+export class NumberMap extends Map<string, number> {
+  increment(key: string, by = 1) {
+    return this.set(key, (this.get(key) ?? 0) + by)
+  }
+}
+
 export const permutations =
   function* <T>(arr: T[]): Generator<T[]> {
     if (1 === arr.length) { yield arr; }
@@ -42,8 +48,13 @@ export const permutations =
   };
 
 export const add =
-  (a: number | boolean, b: number | boolean) =>
+  (a: number | string | boolean, b: number | string | boolean) =>
     Number(a) + Number(b)
+  ;
+
+export const sub =
+  (a: number | string | boolean, b: number | string | boolean) =>
+    Number(a) - Number(b)
   ;
 
 export const setsAreEqual =
